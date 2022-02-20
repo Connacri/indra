@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "222831599175",
+    "firebase_url": "https://inturck-default-rtdb.firebaseio.com",
+    "project_id": "inturck",
+    "storage_bucket": "inturck.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222831599175:android:b68ac00310e41889b59b62",
+        "android_client_info": {
+          "package_name": "com.danil.zou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222831599175-cd2g3elg3av3o0dhukmlvudq836pmmtv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.danil.zou",
+            "certificate_hash": "581d7af1ccf644da4e053c824fcc6c5c4a5bc992"
+          }
+        },
+        {
+          "client_id": "222831599175-smipflplj4u182q8pdeqhbkbvdugbqlg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnZOralrik9xxzORmT28puMkGdE-13hQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222831599175-smipflplj4u182q8pdeqhbkbvdugbqlg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
