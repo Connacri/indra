@@ -40,14 +40,22 @@ class _CardStateLessState extends State<CardStateLess> {
       .limit(3)
       .get();
 
-  Future<QuerySnapshot> _GridListTotal = FirebaseFirestore.instance
-      .collection('Products')
-      .orderBy('createdAt', descending: true)
-      //.limit(100)
-      .get();
+  final Future<DocumentSnapshot> _top =
+      FirebaseFirestore.instance.collection('Products').doc('h1').get();
+
+  //
+  // static const String? documentTop = 'Products';
+  // static const String? collectionRMZ = '0I2yqNMQcdRXVFaNpmFQ';
+
+  // Future<QuerySnapshot> _top = FirebaseFirestore.instance
+  //     .collection('Products')
+  //     .doc('h1').get() as Future<QuerySnapshot<Object?>>;
 
   @override
   Widget build(BuildContext context) {
+    String collectionRMZ = 'Products';
+    String documentTop = 'h1';
+
     return Scaffold(
       body: PaginateFirestore(
         header: SliverToBoxAdapter(
@@ -66,6 +74,100 @@ class _CardStateLessState extends State<CardStateLess> {
                   TopHotelFuture: _TopHotelFuture,
                   enabled: _enabled), //Firestore Slider
               Top_Hotel(TopHotelFuture: _TopHotelFuture),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(
+                  //direction: Axis.horizontal,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        "Top H1",
+                        style:
+                            TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        H1(
+                            collectionRMZ: 'Products',
+                            documentTop: '0NGzux0acnV2BLxL9gmm'),
+                        H1(
+                            collectionRMZ: 'Products',
+                            documentTop: '0idCvPmkwjA62I6c4oXf'),
+                        H1(
+                            collectionRMZ: collectionRMZ,
+                            documentTop: '0rdOoxlkXZeRFUeUjvwN'),
+                        H1(
+                            collectionRMZ: 'Products',
+                            documentTop: '1msxehqQGPgMnYYZ6CZt'),
+                        H1(
+                            collectionRMZ: collectionRMZ,
+                            documentTop: '1xoDybmqFyeUgsMTDggn'),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Wrap(
+                //direction: Axis.horizontal,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      "Top Résidences",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          color: Colors.lightBlue,
+                          elevation: 5,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 5, right: 5),
+                            child: Container(
+                              height: 90,
+                              width: 150,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          color: Colors.lightBlue,
+                          elevation: 5,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 5, right: 5),
+                            child: Container(
+                              height: 90,
+                              width: 150,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          color: Colors.lightBlue,
+                          elevation: 5,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 5, right: 5),
+                            child: Container(
+                              height: 90,
+                              width: 150,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -442,14 +544,14 @@ class _CardStateLessState extends State<CardStateLess> {
                   alignment: Alignment.bottomCenter,
                   child: ListTile(
                     dense: true,
-                    leading:  CachedNetworkImage(
+                    leading: CachedNetworkImage(
                       fit: BoxFit.cover,
                       imageUrl: _data['themb'],
                       placeholder: (context, url) => Center(
-                        //child: CircularProgressIndicator(),
-                      ),
+                          //child: CircularProgressIndicator(),
+                          ),
                       errorWidget: (context, url, error) =>
-                      const Icon(Icons.error),
+                          const Icon(Icons.error),
                     ),
                     title: Text(
                       _data['item'].toUpperCase(),
@@ -523,23 +625,25 @@ class _CardStateLessState extends State<CardStateLess> {
               ),
             ),
           ),
-          Expanded(child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Text(
-                _data['createdAt'].toDate().toString(),
-                //overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.justify,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 12,
-                  fontFamily: 'Oswald',
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Text(
+                  _data['createdAt'].toDate().toString(),
+                  //overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.justify,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 12,
+                    fontFamily: 'Oswald',
+                  ),
                 ),
               ),
             ),
-          ),),
+          ),
           Expanded(
             flex: 10,
             child: Padding(
@@ -603,6 +707,150 @@ class _CardStateLessState extends State<CardStateLess> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class H1 extends StatelessWidget {
+  const H1({
+    Key? key,
+    required this.collectionRMZ,
+    required this.documentTop,
+  }) : super(key: key);
+
+  final String collectionRMZ;
+  final String documentTop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: FutureBuilder(
+        future: FirebaseFirestore.instance
+            .collection(collectionRMZ)
+            .doc(documentTop)
+            .get(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          // final _img = snapshot.data['themb'];
+          // print(_img);
+
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CardTopShimmer(); //Text("Loading");
+          }
+
+          return InkWell(
+            child: Hero(
+              tag: 'detail',
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                elevation: 2,
+                semanticContainer: true,
+                color: Colors.white70,
+                child: Container(
+                  height: MediaQuery.of(context).size.width * 0.15,
+                  width: MediaQuery.of(context).size.width * 0.30,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Container(
+                        child: ShaderMask(
+                          shaderCallback: (rect) {
+                            return LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Colors.transparent, Colors.black],
+                            ).createShader(
+                                Rect.fromLTRB(0, 0, rect.width, rect.height));
+                          },
+                          blendMode: BlendMode.darken,
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: snapshot.data['themb'], //_img,
+                            /*placeholder: (context, url) => Center(
+                            child: CircularProgressIndicator(),
+                          ),*/
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.bottomCenter,
+                        //height: 60,
+                        //color: Colors.black45,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+
+      // Expanded(
+      //   flex: 1,
+      //   child: Card(
+      //     color: Colors.lightBlue,
+      //     elevation: 5,
+      //     child: Padding(
+      //       padding: EdgeInsets.only(left: 5, right: 5),
+      //       child: Container(
+      //         height: 90,
+      //         width: 150,
+      //       ),
+      //     ),
+      //   ),
+      // ),
+      // Expanded(
+      //   flex: 1,
+      //   child: Card(
+      //     color: Colors.lightBlue,
+      //     elevation: 5,
+      //     child: Padding(
+      //       padding: EdgeInsets.only(left: 5, right: 5),
+      //       child: Container(
+      //         height: 90,
+      //         width: 150,
+      //       ),
+      //     ),
+      //   ),
+      // ),
+      // Expanded(
+      //   flex: 1,
+      //   child: Card(
+      //     color: Colors.lightBlue,
+      //     elevation: 5,
+      //     child: Padding(
+      //       padding: EdgeInsets.only(left: 5, right: 5),
+      //       child: Container(
+      //         height: 90,
+      //         width: 150,
+      //       ),
+      //     ),
+      //   ),
+      // ),
+      // Expanded(
+      //   flex: 1,
+      //   child: Card(
+      //     color: Colors.lightBlue,
+      //     elevation: 5,
+      //     child: Padding(
+      //       padding: EdgeInsets.only(left: 5, right: 5),
+      //       child: Container(
+      //         height: 90,
+      //         width: 150,
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
