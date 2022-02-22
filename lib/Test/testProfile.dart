@@ -27,7 +27,7 @@ class ProfileTest extends StatelessWidget {
             style: TextStyle(
               color: Colors.black.withOpacity(0.6),
               fontWeight: FontWeight.normal,
-              fontSize: 10,
+              fontSize: 30,
               fontFamily: 'Oswald',
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:indra/Test/auth.dart';
 import 'package:indra/Test/geo.dart';
 import 'package:indra/Test/pagination_seul.dart';
 import 'package:indra/Test/pagination_v2.dart';
+import 'package:indra/Test/testProfile.dart';
 import 'AddImage.dart';
 import 'Test/Pagination & Infinite Scrolling.dart';
 import 'Test/carousel test.dart';
@@ -100,7 +101,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     //Pagination_Infinite_Scrolling(),
     //ScriptPagination(),
     //Geoloca(),
-    auth(),
+    ProfileTest(providerConfigs: [],),
   ];
 
   void _onItemTapped(int index) {
