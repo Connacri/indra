@@ -74,100 +74,100 @@ class _CardStateLessState extends State<CardStateLess> {
                   TopHotelFuture: _TopHotelFuture,
                   enabled: _enabled), //Firestore Slider
               Top_Hotel(TopHotelFuture: _TopHotelFuture),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Wrap(
-                  //direction: Axis.horizontal,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        "Top H1",
-                        style:
-                            TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        H1(
-                            collectionRMZ: 'Products',
-                            documentTop: '0NGzux0acnV2BLxL9gmm'),
-                        H1(
-                            collectionRMZ: 'Products',
-                            documentTop: '0idCvPmkwjA62I6c4oXf'),
-                        H1(
-                            collectionRMZ: collectionRMZ,
-                            documentTop: '0rdOoxlkXZeRFUeUjvwN'),
-                        H1(
-                            collectionRMZ: 'Products',
-                            documentTop: '1msxehqQGPgMnYYZ6CZt'),
-                        H1(
-                            collectionRMZ: collectionRMZ,
-                            documentTop: '1xoDybmqFyeUgsMTDggn'),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Wrap(
-                //direction: Axis.horizontal,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      "Top Résidences",
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Card(
-                          color: Colors.lightBlue,
-                          elevation: 5,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 5, right: 5),
-                            child: Container(
-                              height: 90,
-                              width: 150,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Card(
-                          color: Colors.lightBlue,
-                          elevation: 5,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 5, right: 5),
-                            child: Container(
-                              height: 90,
-                              width: 150,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Card(
-                          color: Colors.lightBlue,
-                          elevation: 5,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 5, right: 5),
-                            child: Container(
-                              height: 90,
-                              width: 150,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Wrap(
+              //     //direction: Axis.horizontal,
+              //     children: [
+              //       Container(
+              //         padding: EdgeInsets.all(10),
+              //         child: Text(
+              //           "Top H1",
+              //           style: TextStyle(
+              //               fontSize: 25, fontWeight: FontWeight.bold),
+              //         ),
+              //       ),
+              //       Row(
+              //         children: [
+              //           H1(
+              //               collectionRMZ: 'Products',
+              //               documentTop: '0NGzux0acnV2BLxL9gmm'),
+              //           H1(
+              //               collectionRMZ: 'Products',
+              //               documentTop: '0idCvPmkwjA62I6c4oXf'),
+              //           H1(
+              //               collectionRMZ: collectionRMZ,
+              //               documentTop: '0rdOoxlkXZeRFUeUjvwN'),
+              //           H1(
+              //               collectionRMZ: 'Products',
+              //               documentTop: '1msxehqQGPgMnYYZ6CZt'),
+              //           H1(
+              //               collectionRMZ: collectionRMZ,
+              //               documentTop: '1xoDybmqFyeUgsMTDggn'),
+              //         ],
+              //       )
+              //     ],
+              //   ),
+              // ),
+              // Wrap(
+              //   //direction: Axis.horizontal,
+              //   children: [
+              //     Container(
+              //       padding: EdgeInsets.all(10),
+              //       child: Text(
+              //         "Top Résidences",
+              //         style:
+              //             TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              //       ),
+              //     ),
+              //     Row(
+              //       children: [
+              //         Expanded(
+              //           flex: 1,
+              //           child: Card(
+              //             color: Colors.lightBlue,
+              //             elevation: 5,
+              //             child: Padding(
+              //               padding: EdgeInsets.only(left: 5, right: 5),
+              //               child: Container(
+              //                 height: 90,
+              //                 width: 150,
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //         Expanded(
+              //           flex: 1,
+              //           child: Card(
+              //             color: Colors.lightBlue,
+              //             elevation: 5,
+              //             child: Padding(
+              //               padding: EdgeInsets.only(left: 5, right: 5),
+              //               child: Container(
+              //                 height: 90,
+              //                 width: 150,
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //         Expanded(
+              //           flex: 1,
+              //           child: Card(
+              //             color: Colors.lightBlue,
+              //             elevation: 5,
+              //             child: Padding(
+              //               padding: EdgeInsets.only(left: 5, right: 5),
+              //               child: Container(
+              //                 height: 90,
+              //                 width: 150,
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       ],
+              //     )
+              //   ],
+              // ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -477,6 +477,7 @@ class _CardStateLessState extends State<CardStateLess> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (BuildContext context) {
                         return buildCardDetail(_data);
+                          
                       }));
                     },
                     child: Hero(
@@ -577,7 +578,7 @@ class _CardStateLessState extends State<CardStateLess> {
                 ),
               ],
             ),
-          ),
+          ), // picture
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -624,7 +625,7 @@ class _CardStateLessState extends State<CardStateLess> {
                 ],
               ),
             ),
-          ),
+          ), // price & likes
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -643,7 +644,7 @@ class _CardStateLessState extends State<CardStateLess> {
                 ),
               ),
             ),
-          ),
+          ), // timesptamp
           Expanded(
             flex: 10,
             child: Padding(
@@ -663,11 +664,13 @@ class _CardStateLessState extends State<CardStateLess> {
                 ),
               ),
             ),
-          ), // Description
+          ), // description// Description
         ],
       ),
     );
   }
+
+
 
   Row CategoryColors(Map<dynamic, dynamic> _data, customColor, customColor2,
       IconData? customIcon) {
@@ -1430,3 +1433,187 @@ class Cardless extends StatelessWidget {
     );
   }
 }
+
+// class CardDetailHero extends StatelessWidget {
+//   const CardDetailHero({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       child: Column(
+//         children: [
+//           Expanded(
+//             flex: 6,
+//             child: Stack(
+//               fit: StackFit.expand,
+//               children: [
+//                 ShaderMask(
+//                   shaderCallback: (rect) {
+//                     return const LinearGradient(
+//                       begin: Alignment.topCenter,
+//                       end: Alignment.bottomCenter,
+//                       colors: [Colors.transparent, Colors.black],
+//                     ).createShader(
+//                         Rect.fromLTRB(0, 0, rect.width, rect.height));
+//                   },
+//                   blendMode: BlendMode.darken,
+//                   child: CachedNetworkImage(
+//                     fit: BoxFit.cover,
+//                     imageUrl: _data['themb'],
+//                     placeholder: (context, url) => Center(
+//                       //child: CircularProgressIndicator(),
+//                     ),
+//                     errorWidget: (context, url, error) =>
+//                     const Icon(Icons.error),
+//                   ),
+//                 ), // image
+//                 Container(
+//                     padding: const EdgeInsets.fromLTRB(0, 35, 15, 0),
+//                     //alignment: Alignment.topLeft,
+//                     child: _data['category'] == 'Hotel'
+//                         ? CategoryColors(
+//                         _data, Colors.blue, Colors.white, Icons.hotel)
+//                         : _data['category'] == 'Agence'
+//                         ? CategoryColors(_data, Colors.red, Colors.white,
+//                         Icons.account_balance)
+//                         : _data['category'] == 'Residence'
+//                         ? CategoryColors(_data, Colors.green,
+//                         Colors.white, Icons.apartment)
+//                         : _data['category'] == 'Autres'
+//                         ? CategoryColors(_data, Colors.deepPurple,
+//                         Colors.white, Icons.category)
+//                         : CategoryColors(_data, Colors.black54,
+//                         Colors.amber, Icons.attach_money)
+//
+//                   // sponsors
+//                 ), // category
+//
+//                 Container(
+//                   alignment: Alignment.bottomCenter,
+//                   child: ListTile(
+//                     dense: true,
+//                     leading: CachedNetworkImage(
+//                       fit: BoxFit.cover,
+//                       imageUrl: _data['themb'],
+//                       placeholder: (context, url) => Center(
+//                         //child: CircularProgressIndicator(),
+//                       ),
+//                       errorWidget: (context, url, error) =>
+//                       const Icon(Icons.error),
+//                     ),
+//                     title: Text(
+//                       _data['item'].toUpperCase(),
+//                       overflow: TextOverflow.ellipsis,
+//                       style: const TextStyle(
+//                         color: Colors.white,
+//                         fontWeight: FontWeight.normal,
+//                         fontSize: 17,
+//                         fontFamily: 'Oswald',
+//                       ),
+//                     ),
+//                     subtitle: Text(
+//                       _data['code'].toUpperCase(),
+//                       overflow: TextOverflow.ellipsis,
+//                       style: const TextStyle(
+//                         color: Colors.amber,
+//                         fontWeight: FontWeight.bold,
+//                         fontSize: 14,
+//                         fontFamily: 'Oswald',
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ), // picture
+//           Expanded(
+//             child: Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: Row(
+//                 children: [
+//                   Expanded(
+//                     flex: 3,
+//                     child: Align(
+//                       alignment: Alignment.topLeft,
+//                       child: Text(
+//                         _data['price'].toUpperCase() + '.00 DZD',
+//                         overflow: TextOverflow.ellipsis,
+//                         style: const TextStyle(
+//                           color: Colors.red,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 16,
+//                           fontFamily: 'Oswald',
+//                         ),
+//                       ),
+//                     ),
+//                   ), // price
+//                   Align(
+//                     alignment: Alignment.topRight,
+//                     child: Row(
+//                       children: [
+//                         Text(
+//                           _data['likes'].toUpperCase(),
+//                           overflow: TextOverflow.ellipsis,
+//                           style: const TextStyle(
+//                             color: Colors.blue,
+//                             fontWeight: FontWeight.normal,
+//                             fontSize: 14,
+//                             fontFamily: 'Oswald',
+//                           ),
+//                         ),
+//                         const Icon(
+//                           Icons.favorite,
+//                           color: Colors.blue,
+//                           size: 16.0,
+//                         ), // icon hearth
+//                       ],
+//                     ),
+//                   ), // likes
+//                 ],
+//               ),
+//             ),
+//           ), // price & likes
+//           Expanded(
+//             child: Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: Align(
+//                 alignment: Alignment.topRight,
+//                 child: Text(
+//                   _data['createdAt'].toDate().toString(),
+//                   //overflow: TextOverflow.ellipsis,
+//                   textAlign: TextAlign.justify,
+//                   style: const TextStyle(
+//                     color: Colors.black,
+//                     fontWeight: FontWeight.normal,
+//                     fontSize: 12,
+//                     fontFamily: 'Oswald',
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ), // timesptamp
+//           Expanded(
+//             flex: 10,
+//             child: Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: Align(
+//                 alignment: Alignment.topLeft,
+//                 child: Text(
+//                   _data['Description'],
+//                   //overflow: TextOverflow.ellipsis,
+//                   textAlign: TextAlign.justify,
+//                   style: const TextStyle(
+//                     color: Colors.black,
+//                     fontWeight: FontWeight.normal,
+//                     fontSize: 15,
+//                     fontFamily: 'Oswald',
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ), // description// Description
+//         ],
+//       ),
+//     );
+//   }
+// }

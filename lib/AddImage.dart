@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -65,6 +66,12 @@ class _AddImageState extends State<AddImage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Ajouter Une Annonce'),
+          actions: [
+            IconButton(
+              onPressed: () => FirebaseAuth.instance.signOut(),
+              icon: Icon(Icons.logout),
+            )
+          ],
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(

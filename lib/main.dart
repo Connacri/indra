@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:indra/Test/auth.dart';
 import 'package:indra/Test/geo.dart';
 import 'package:indra/Test/pagination_seul.dart';
 import 'package:indra/Test/pagination_v2.dart';
@@ -14,17 +15,48 @@ import 'home.dart';
 import 'Fav.dart';
 import 'screens/Home.dart';
 import 'webp.dart';
-
+import 'package:splash_screen_view/SplashScreenView.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(Splash());
+}
+
+class Splash extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Widget example1 = SplashScreenView(
+      navigateRoute: Home(),
+      duration: 5000,
+      imageSize: 130,
+      imageSrc: 'assets/icon/dolphin.png',
+      text: "Guedouar Corp",
+      textStyle: TextStyle(
+        fontWeight: FontWeight.normal,
+        fontFamily: 'Oswald',
+        fontSize: 40.0,
+      ),
+      textType: TextType.TyperAnimatedText,//TextType.ColorizeAnimationText,
+      colors: [
+        Colors.purple,
+        Colors.blue,
+        Colors.yellow,
+        Colors.red,
+      ],
+      backgroundColor: Colors.white,
+    );
+
+    return MaterialApp(
+      title: 'Splash screen Demo',
+      home: example1,
+    );
+  }
 }
 
 /// This is the main application widget.
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
 
   static const String _title = 'Flutter Code Sample';
 
@@ -51,9 +83,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    CardStateLess(),//**************************
+    CardStateLess(), //**************************
     Pagination_Infinite_Scrolling(),
-    conbb(),//**************************
+    conbb(), //**************************
     //ScriptPagination(),
     //RamzyPagination(),
     //Carrouselllll(),
@@ -67,7 +99,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     //RamzyPagination(),
     //Pagination_Infinite_Scrolling(),
     //ScriptPagination(),
-    Geoloca(),
+    //Geoloca(),
+    auth(),
   ];
 
   void _onItemTapped(int index) {
@@ -84,14 +117,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
             return //Insert();
-              //MyAppp();
-              //addin();
-              //UploadingImageToFirebaseStorage();
-              //AddContacts();
-              //HomePage2();
-              //AddImageList();//***************
-              // MyAppimg();
-              AddImage();//******************************************************taliya correct
+                //MyAppp();
+                //addin();
+                //UploadingImageToFirebaseStorage();
+                //AddContacts();
+                //HomePage2();
+                //AddImageList();//***************
+                // MyAppimg();
+                //AddImage(); //******************************************************taliya correct
+              auth();
             // AddProd();
           }));
         },
@@ -118,7 +152,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             icon: Icon(Icons.threesixty),
             label: 'Messenger',
           ),
-
 
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
