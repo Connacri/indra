@@ -481,7 +481,7 @@ class _CardStateLessState extends State<CardStateLess> {
                       }));
                     },
                     child: Hero(
-                      tag: 'detail',
+                      tag: 'detailheroo',
                       child: Cardless(data: _data),
                     ),
                   ),
@@ -747,7 +747,7 @@ class H1 extends StatelessWidget {
 
           return InkWell(
             child: Hero(
-              tag: 'detail',
+              tag: 'detailheroo',
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
@@ -897,7 +897,7 @@ class TopWidget extends StatelessWidget {
                   }));
                 },
                 child: Hero(
-                  tag: 'detail',
+                  tag: 'detailh1',
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
@@ -1159,7 +1159,7 @@ class Top_Hotel extends StatelessWidget {
                           }));
                         },
                         child:
-                            Hero(tag: 'detail', child: CardTop(data: _data)));
+                            Hero(tag: 'detailh1', child: CardTop(data: _data)));
                   }).toList(),
                 );
               },

@@ -1,20 +1,27 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/i10n.dart';
+import 'package:indra/AddImage.dart';
+import 'package:indra/Auth/Main_Auth.dart';
+import 'package:indra/Authentification/AuthPage.dart';
+import 'package:indra/Authentification/Auth_Add.dart';
+import 'package:indra/Authentification/Test.dart';
+import 'package:indra/Authentification/Utils.dart';
+import 'package:indra/Authentification/Utils.dart';
+import 'package:indra/Authentification/Utils.dart';
+import 'package:indra/Authentification/Utils.dart';
+import 'package:indra/Authentification/main.dart';
+import 'package:indra/Authentification/tmanyik.dart';
+import 'package:indra/Hotel/global_rooms.dart';
+import 'package:indra/Hotel/khra.dart';
+import 'package:indra/Hotel/test.dart';
+import 'package:indra/Hotel/test2.dart';
 import 'package:indra/Test/auth.dart';
-import 'package:indra/Test/geo.dart';
-import 'package:indra/Test/pagination_seul.dart';
+import 'package:indra/Test/firestoreScriptPagination.dart';
 import 'package:indra/Test/pagination_v2.dart';
 import 'package:indra/Test/testProfile.dart';
-import 'AddImage.dart';
+import 'package:indra/add_dif/card_test.dart';
 import 'Test/Pagination & Infinite Scrolling.dart';
-import 'Test/carousel test.dart';
-import 'Test/firestoreScriptPagination.dart';
-import 'Test/pagination_view.dart';
-import 'Test/shimmer.dart';
-import 'add_dif/card_test.dart';
-import 'home.dart';
-import 'Fav.dart';
-import 'screens/Home.dart';
 import 'webp.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
@@ -24,12 +31,14 @@ Future<void> main() async {
   runApp(Splash());
 }
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget example1 = SplashScreenView(
       navigateRoute: Home(),
-      duration: 5000,
+      duration: 3000,
       imageSize: 130,
       imageSrc: 'assets/icon/dolphin.png',
       text: "Guedouar Corp",
@@ -38,17 +47,27 @@ class Splash extends StatelessWidget {
         fontFamily: 'Oswald',
         fontSize: 40.0,
       ),
-      textType: TextType.TyperAnimatedText,//TextType.ColorizeAnimationText,
+      textType: //TextType.TyperAnimatedText,
+          TextType.ColorizeAnimationText,
       colors: [
         Colors.purple,
         Colors.blue,
         Colors.yellow,
         Colors.red,
+        Colors.white,
       ],
       backgroundColor: Colors.white,
     );
 
     return MaterialApp(
+      // localizationsDelegates: [
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      // ],
+      // locale: Locale('fr'),
+      //scaffoldMessengerKey: Utils.messengerKey,
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
       title: 'Splash screen Demo',
       home: example1,
     );
@@ -92,16 +111,24 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     //Carrouselllll(),
     //CardTest(),
     //RealTimeDataDisplay(),
+    //ProfileTest(providerConfigs: [],),//**********************************
     //CarouselDemo(),
     //Profile(),
-    //Pagina(),//*************************
+    //Pagina(),
     //home(),
     //Shimme(),
     //RamzyPagination(),
     //Pagination_Infinite_Scrolling(),
     //ScriptPagination(),
     //Geoloca(),
-    ProfileTest(providerConfigs: [],),
+    //test_loginst(),
+    //MainPageAuth(),//***************************
+    //ProfileTest(providerConfigs: [],),
+    global_rooms(),
+    //loadDataToCalendar()
+    //EventCalendar()
+    //dataTableTest()
+    khra()
   ];
 
   void _onItemTapped(int index) {
@@ -115,6 +142,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return Scaffold(
       // appBar: AppBar(title: const Text('BottomNavigationBar Sample'),),
       floatingActionButton: FloatingActionButton(
+//        heroTag: 'additemst',
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
             return //Insert();
@@ -126,7 +154,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 //AddImageList();//***************
                 // MyAppimg();
                 //AddImage(); //******************************************************taliya correct
-              auth();
+                //AuthPage();
+                //MainPageAuth();
+              //Auth_add();
+              Main_Auth();
+            //test_loginst();
+            //tmanyik();
+            //auth();
             // AddProd();
           }));
         },
@@ -158,10 +192,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             icon: Icon(Icons.school),
             label: 'Profile',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.three_k_plus_rounded),
-          //   label: 'Gradienz',
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.three_k_plus_rounded),
+            label: 'Gradienz',
+          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
