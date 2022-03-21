@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 final messengerKey = GlobalKey<ScaffoldMessengerState>();
 
-class Utils {
+class Utilsoth {
 
   static showSnackBar(String? text) {
     if (text == null) return;

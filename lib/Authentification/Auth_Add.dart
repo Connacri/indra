@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:indra/AddImage.dart';
 import 'package:indra/Authentification/AuthPage.dart';
 import 'package:indra/Authentification/Test.dart';
-import 'package:indra/Authentification/Utils.dart';
+import 'package:indra/Authentification/Utilsoth.dart';
 import 'package:indra/Authentification/home_auth1.dart';
 import 'package:indra/Authentification/login_widget.dart';
 import 'package:indra/Authentification/tmanyik.dart';

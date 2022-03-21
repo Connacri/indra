@@ -6,12 +6,13 @@ import 'package:indra/Auth/Main_Auth.dart';
 import 'package:indra/Authentification/AuthPage.dart';
 import 'package:indra/Authentification/Auth_Add.dart';
 import 'package:indra/Authentification/Test.dart';
-import 'package:indra/Authentification/Utils.dart';
-import 'package:indra/Authentification/Utils.dart';
-import 'package:indra/Authentification/Utils.dart';
-import 'package:indra/Authentification/Utils.dart';
+import 'package:indra/Authentification/Utilsoth.dart';
+import 'package:indra/Authentification/Utilsoth.dart';
+import 'package:indra/Authentification/Utilsoth.dart';
+import 'package:indra/Authentification/Utilsoth.dart';
 import 'package:indra/Authentification/main.dart';
 import 'package:indra/Authentification/tmanyik.dart';
+import 'package:indra/Hotel/Gantt_Chart/gantt_chart_screen.dart';
 import 'package:indra/Hotel/global_rooms.dart';
 import 'package:indra/Hotel/khra.dart';
 import 'package:indra/Hotel/test.dart';
@@ -128,7 +129,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     //loadDataToCalendar()
     //EventCalendar()
     //dataTableTest()
-    khra()
+    //khra()
+    gantt_chart()
   ];
 
   void _onItemTapped(int index) {
