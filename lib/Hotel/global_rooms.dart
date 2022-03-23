@@ -35,7 +35,7 @@ class _global_roomsState extends State<global_rooms> {
   }
 
   void _resetSelectedDate() {
-    _selectedDate = DateTime.now().add(Duration(days: 0));
+    _selectedDate = DateTime.now();
     _selectedDate1 = _selectedDate.add(Duration(days: 1));
     _selectedDate2 = _selectedDate.add(Duration(days: 2));
     _selectedDate3 = _selectedDate.add(Duration(days: 3));
@@ -87,8 +87,9 @@ class _global_roomsState extends State<global_rooms> {
               ),
             ),
             CalendarTimeline(
-              initialDate:
-                  _selectedDate, //DateTime(2022, 1, 01),// date de first view
+              initialDate: //DateTime.now(),
+              //    _selectedDate,
+              DateTime(2022, 1, 01),// date de first view
               firstDate: //DateTime.now(),
                   DateTime(2020, 1,
                       22), //date du commencement du calendrier general maximum

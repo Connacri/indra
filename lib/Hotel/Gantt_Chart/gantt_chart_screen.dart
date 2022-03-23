@@ -1,10 +1,14 @@
+import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'models.dart';
-import 'package:date_utils/date_utils.dart';
+
+
 
 class gantt_chart extends StatelessWidget {
   const gantt_chart({Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class GranttChartScreenState extends State<GranttChartScreen>
   late AnimationController animationController;
 
   DateTime fromDate = DateTime(2018, 1, 1);
-  DateTime toDate = DateTime(2019, 1, 1);
+  DateTime toDate = DateTime(2022, 1, 1);
 
   late List<User> usersInChart;
   late List<Project> projectsInChart;
@@ -93,7 +97,9 @@ class GanttChart extends StatelessWidget {
     required this.data,
     required this.usersInChart,
   }) {
-    viewRange = calculateNumberOfMonthsBetween(fromDate, toDate);
+    viewRange =365;
+        //differenceInDays(fromDate, toDate);
+    //calculateNumberOfMonthsBetween(fromDate, toDate);
   }
 
   Color randomColorGenerator() {
@@ -103,6 +109,10 @@ class GanttChart extends StatelessWidget {
 
   int calculateNumberOfMonthsBetween(DateTime from, DateTime to) {
     return to.month - from.month + 12 * (to.year - from.year) + 1;
+  }
+
+  int differenceInDays(DateTime from, DateTime to){
+    return differenceInDays(from, to);
   }
 
   int calculateDistanceToLeftBorder(DateTime projectStartedAt) {
@@ -178,6 +188,8 @@ class GanttChart extends StatelessWidget {
     List<Widget> headerItems = [];
 
     DateTime tempDate = fromDate;
+    // DateTime tempDatem = fromDate;
+    // DateTime tempDatey = fromDate;
 
     headerItems.add(Container(
       width: chartViewWidth / viewRangeToFitScreen,
@@ -194,14 +206,17 @@ class GanttChart extends StatelessWidget {
       headerItems.add(Container(
         width: chartViewWidth / viewRangeToFitScreen,
         child: new Text(
-          tempDate.month.toString() + '/' + tempDate.year.toString(),
+          tempDate.day.toString(),// + '/' + tempDatem.month.toString() + '/' + tempDatey.year.toString(),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 10.0,
           ),
         ),
       ));
-      //tempDate = Utils.nextMonth(tempDate);
+      tempDate = tempDate.nextDay;
+      // tempDatem = tempDate.nextMonth;
+      // tempDatey = tempDate.nextYear;
+
     }
 
     return Container(
