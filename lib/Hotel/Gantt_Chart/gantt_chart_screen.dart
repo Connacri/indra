@@ -3,19 +3,14 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'models.dart';
 
-
-
 class gantt_chart extends StatelessWidget {
   const gantt_chart({Key? key}) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
     return GranttChartScreen();
   }
 }
-
 
 class GranttChartScreen extends StatefulWidget {
   @override
@@ -45,48 +40,47 @@ class GranttChartScreenState extends State<GranttChartScreen>
     usersInChart = users;
   }
 
-  Widget buildAppBar() {
-    return AppBar(
-      title: Text('GANTT CHART'),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: buildAppBar(),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: GanttChart(
-                animationController: animationController,
-                fromDate: fromDate,
-                toDate: toDate,
-                data: projectsInChart,
-                usersInChart: usersInChart,
-              ),
-            ),
-          ],
-        ),
+      appBar: AppBar(
+        title: Text('GANTT CHART'),
       ),
+      body:
+          // GestureDetector(
+          //   onTap: () {
+          //     FocusScope.of(context).requestFocus(new FocusNode());
+          //   },
+          //   child:
+          Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Expanded(
+            child: GanttChart(
+              animationController: animationController,
+              fromDate: fromDate,
+              toDate: toDate,
+              data: projectsInChart,
+              usersInChart: usersInChart,
+            ),
+          ),
+        ],
+      ),
+      //),
     );
   }
 }
 
 class GanttChart extends StatelessWidget {
-
   final AnimationController animationController;
   final DateTime fromDate;
   final DateTime toDate;
   final List<Project> data;
   final List<User> usersInChart;
 
+  late int NombreJours;
   late int viewRange;
+
   int viewRangeToFitScreen = 6;
   late Animation<double> width;
 
@@ -97,9 +91,14 @@ class GanttChart extends StatelessWidget {
     required this.data,
     required this.usersInChart,
   }) {
-    viewRange =365;
-        //differenceInDays(fromDate, toDate);
+
+    viewRange = 365;
+
+    //viewdays = differenceInDays(fromDate, toDate);
     //calculateNumberOfMonthsBetween(fromDate, toDate);
+    final NombreJours = toDate.difference(fromDate).inDays;
+    print(NombreJours);
+
   }
 
   Color randomColorGenerator() {
@@ -107,39 +106,39 @@ class GanttChart extends StatelessWidget {
     return Color.fromRGBO(r.nextInt(256), r.nextInt(256), r.nextInt(256), 0.75);
   }
 
-  int calculateNumberOfMonthsBetween(DateTime from, DateTime to) {
-    return to.month - from.month + 12 * (to.year - from.year) + 1;
-  }
+  // int calculateNumberOfMonthsBetween(DateTime from, DateTime to) {
+  //   return to.month - from.month + 12 * (to.year - from.year) + 1;
+  // }
 
-  int differenceInDays(DateTime from, DateTime to){
-    return differenceInDays(from, to);
-  }
+
 
   int calculateDistanceToLeftBorder(DateTime projectStartedAt) {
     if (projectStartedAt.compareTo(fromDate) <= 0) {
       return 0;
     } else
-      return calculateNumberOfMonthsBetween(fromDate, projectStartedAt) - 1;
+      return projectStartedAt.difference(fromDate).inDays - 1;
+        //calculateNumberOfMonthsBetween(fromDate, projectStartedAt) - 1;
   }
 
   int calculateRemainingWidth(
       DateTime projectStartedAt, DateTime projectEndedAt) {
-    int projectLength =
-        calculateNumberOfMonthsBetween(projectStartedAt, projectEndedAt);
+    int projectLength = projectEndedAt.difference(projectStartedAt).inDays;
+        //calculateNumberOfMonthsBetween(projectStartedAt, projectEndedAt);
+
     if (projectStartedAt.compareTo(fromDate) >= 0 &&
         projectStartedAt.compareTo(toDate) <= 0) {
       if (projectLength <= viewRange)
         return projectLength;
       else
-        return viewRange -
-            calculateNumberOfMonthsBetween(fromDate, projectStartedAt);
+        return viewRange - projectStartedAt.difference(fromDate).inDays;
+            //calculateNumberOfMonthsBetween(fromDate, projectStartedAt);
     } else if (projectStartedAt.isBefore(fromDate) &&
         projectEndedAt.isBefore(fromDate)) {
       return 0;
     } else if (projectStartedAt.isBefore(fromDate) &&
         projectEndedAt.isBefore(toDate)) {
-      return projectLength -
-          calculateNumberOfMonthsBetween(projectStartedAt, fromDate);
+      return projectLength - projectStartedAt.difference(fromDate).inDays;
+          //calculateNumberOfMonthsBetween(projectStartedAt, fromDate);
     } else if (projectStartedAt.isBefore(fromDate) &&
         projectEndedAt.isAfter(toDate)) {
       return viewRange;
@@ -206,7 +205,8 @@ class GanttChart extends StatelessWidget {
       headerItems.add(Container(
         width: chartViewWidth / viewRangeToFitScreen,
         child: new Text(
-          tempDate.day.toString(),// + '/' + tempDatem.month.toString() + '/' + tempDatey.year.toString(),
+          tempDate.day
+              .toString(), // + '/' + tempDatem.month.toString() + '/' + tempDatey.year.toString(),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 10.0,
@@ -327,8 +327,8 @@ class GanttChart extends StatelessWidget {
     var screenOrientation = MediaQuery.of(context).orientation;
 
     screenOrientation == Orientation.landscape
-        ? viewRangeToFitScreen = 12
-        : viewRangeToFitScreen = 6;
+        ? viewRangeToFitScreen = 15
+        : viewRangeToFitScreen = 10;
 
     return Container(
       child: MediaQuery.removePadding(
@@ -341,10 +341,10 @@ class GanttChart extends StatelessWidget {
 }
 
 var users = [
-  User(id: 1, name: 'Steve'),
-  User(id: 2, name: 'Leila'),
-  User(id: 3, name: 'Alex'),
-  User(id: 4, name: 'Ryan'),
+  User(id: 1, name: 'Ramzi'),
+  User(id: 2, name: 'Guedouar'),
+  User(id: 3, name: 'Danil'),
+  User(id: 4, name: 'Selyane'),
 ];
 
 var projects = [
@@ -352,8 +352,8 @@ var projects = [
       id: 1,
       name: 'Basetax',
       startTime: DateTime(2017, 3, 1),
-      endTime: DateTime(2018, 6, 1),
-      participants: [1, 2, 3]),
+      endTime: DateTime(2017, 3, 2),
+      participants: [1]),
   Project(
       id: 2,
       name: 'CENTTO',

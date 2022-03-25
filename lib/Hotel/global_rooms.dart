@@ -88,8 +88,8 @@ class _global_roomsState extends State<global_rooms> {
             ),
             CalendarTimeline(
               initialDate: //DateTime.now(),
-              //    _selectedDate,
-              DateTime(2022, 1, 01),// date de first view
+                  _selectedDate,
+              //DateTime(2022, 1, 01),// date de first view
               firstDate: //DateTime.now(),
                   DateTime(2020, 1,
                       22), //date du commencement du calendrier general maximum
