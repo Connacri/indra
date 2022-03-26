@@ -107,11 +107,10 @@ class GanttChart extends StatelessWidget {
     print(NombreJours);
   }
 
-
-
   Color randomColorGenerator() {
     var r = new Random();
-    return Color.fromRGBO(r.nextInt(256), r.nextInt(256), r.nextInt(256), 1 /*0.75*/);
+    return Color.fromRGBO(
+        r.nextInt(256), r.nextInt(256), r.nextInt(256), 1 /*0.75*/);
   }
 
   // int calculateNumberOfMonthsBetween(DateTime from, DateTime to) {
@@ -258,7 +257,7 @@ class GanttChart extends StatelessWidget {
   Widget buildChartForEachUser(
       List<Project> userData, double chartViewWidth, User user) {
     Color color = //Colors.teal;
-    randomColorGenerator();
+        randomColorGenerator();
     var chartBars = buildChartBars(userData, chartViewWidth, color);
     return Container(
       height: chartBars.length * 29.0 + 25.0 + 4.0,
@@ -342,8 +341,8 @@ class GanttChart extends StatelessWidget {
     var screenOrientation = MediaQuery.of(context).orientation;
 
     screenOrientation == Orientation.landscape
-        ? viewRangeToFitScreen = 24
-        : viewRangeToFitScreen = 12;
+        ? viewRangeToFitScreen = 12
+        : viewRangeToFitScreen = 6;
 
     return Container(
       child: MediaQuery.removePadding(
@@ -352,25 +351,24 @@ class GanttChart extends StatelessWidget {
             initialDate: fromDate,
             firstDate: fromDate,
             lastDate: toDate,
-            onDateSelected: (DateTime)  {  },
-            showYears : true,
-            leftMargin: 20,
+            onDateSelected: (DateTime) {},
+            showYears: true,
+            leftMargin: 60,
             monthColor: Colors.blueGrey,
             dayColor: Colors.teal[200],
             activeDayColor: Colors.white,
             activeBackgroundDayColor: Colors.redAccent[100],
             dotsColor: Color(0xFF333A47),
-
             selectableDayPredicate: (date) => date.day != 23,
             locale:
-            'en_ISO', //********************************************en_ISO
+                'en_ISO', //********************************************en_ISO
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Column(
               children: buildChartContent(chartViewWidth),
             ),
-          )
+          ),
         ]),
         removeTop: true,
         context: context,
