@@ -1,3 +1,4 @@
+import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -106,9 +107,11 @@ class GanttChart extends StatelessWidget {
     print(NombreJours);
   }
 
+
+
   Color randomColorGenerator() {
     var r = new Random();
-    return Color.fromRGBO(r.nextInt(256), r.nextInt(256), r.nextInt(256), 0.75);
+    return Color.fromRGBO(r.nextInt(256), r.nextInt(256), r.nextInt(256), 1 /*0.75*/);
   }
 
   // int calculateNumberOfMonthsBetween(DateTime from, DateTime to) {
@@ -254,7 +257,8 @@ class GanttChart extends StatelessWidget {
 
   Widget buildChartForEachUser(
       List<Project> userData, double chartViewWidth, User user) {
-    Color color = randomColorGenerator();
+    Color color = //Colors.teal;
+    randomColorGenerator();
     var chartBars = buildChartBars(userData, chartViewWidth, color);
     return Container(
       height: chartBars.length * 29.0 + 25.0 + 4.0,
@@ -338,12 +342,29 @@ class GanttChart extends StatelessWidget {
     var screenOrientation = MediaQuery.of(context).orientation;
 
     screenOrientation == Orientation.landscape
-        ? viewRangeToFitScreen = 12
-        : viewRangeToFitScreen = 16;
+        ? viewRangeToFitScreen = 24
+        : viewRangeToFitScreen = 12;
 
     return Container(
       child: MediaQuery.removePadding(
         child: ListView(children: [
+          CalendarTimeline(
+            initialDate: fromDate,
+            firstDate: fromDate,
+            lastDate: toDate,
+            onDateSelected: (DateTime)  {  },
+            showYears : true,
+            leftMargin: 20,
+            monthColor: Colors.blueGrey,
+            dayColor: Colors.teal[200],
+            activeDayColor: Colors.white,
+            activeBackgroundDayColor: Colors.redAccent[100],
+            dotsColor: Color(0xFF333A47),
+
+            selectableDayPredicate: (date) => date.day != 23,
+            locale:
+            'en_ISO', //********************************************en_ISO
+          ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Column(
@@ -383,7 +404,7 @@ var projects = [
       name: 'Uber',
       startTime: DateTime(2017, 1, 14),
       endTime: DateTime(2017, 1, 25),
-      participants: [1, 2, 4]),
+      participants: [1, 2, 4, 3]),
   Project(
       id: 4,
       name: 'Grab',
