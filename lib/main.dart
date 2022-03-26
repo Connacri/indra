@@ -29,7 +29,8 @@ import 'package:splash_screen_view/SplashScreenView.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(Splash());
+  runApp (Home());
+    //(Splash());
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -104,6 +105,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
+    gantt_chart(),
     CardStateLess(), //**************************
     Pagination_Infinite_Scrolling(),
     conbb(), //**************************
@@ -130,7 +132,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     //EventCalendar()
     //dataTableTest()
     //khra()
-    gantt_chart()
+
   ];
 
   void _onItemTapped(int index) {

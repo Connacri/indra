@@ -23,8 +23,8 @@ class GranttChartScreenState extends State<GranttChartScreen>
     with TickerProviderStateMixin {
   late AnimationController animationController;
 
-  DateTime fromDate = DateTime(2018, 1, 1);
-  DateTime toDate = DateTime(2022, 1, 1);
+  DateTime fromDate = DateTime(2017, 1, 1);
+  DateTime toDate = DateTime(2023, 1, 1);
 
   late List<User> usersInChart;
   late List<Project> projectsInChart;
@@ -41,6 +41,11 @@ class GranttChartScreenState extends State<GranttChartScreen>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -54,6 +59,7 @@ class GranttChartScreenState extends State<GranttChartScreen>
           //   child:
           Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Expanded(
             child: GanttChart(
@@ -66,6 +72,7 @@ class GranttChartScreenState extends State<GranttChartScreen>
           ),
         ],
       ),
+
       //),
     );
   }
@@ -91,14 +98,12 @@ class GanttChart extends StatelessWidget {
     required this.data,
     required this.usersInChart,
   }) {
-
     viewRange = 365;
 
     //viewdays = differenceInDays(fromDate, toDate);
     //calculateNumberOfMonthsBetween(fromDate, toDate);
     final NombreJours = toDate.difference(fromDate).inDays;
     print(NombreJours);
-
   }
 
   Color randomColorGenerator() {
@@ -110,20 +115,18 @@ class GanttChart extends StatelessWidget {
   //   return to.month - from.month + 12 * (to.year - from.year) + 1;
   // }
 
-
-
   int calculateDistanceToLeftBorder(DateTime projectStartedAt) {
     if (projectStartedAt.compareTo(fromDate) <= 0) {
       return 0;
     } else
-      return projectStartedAt.difference(fromDate).inDays - 1;
-        //calculateNumberOfMonthsBetween(fromDate, projectStartedAt) - 1;
+      return projectStartedAt.difference(fromDate).inDays; //-1;
+    //calculateNumberOfMonthsBetween(fromDate, projectStartedAt) - 1;
   }
 
   int calculateRemainingWidth(
       DateTime projectStartedAt, DateTime projectEndedAt) {
     int projectLength = projectEndedAt.difference(projectStartedAt).inDays;
-        //calculateNumberOfMonthsBetween(projectStartedAt, projectEndedAt);
+    //calculateNumberOfMonthsBetween(projectStartedAt, projectEndedAt);
 
     if (projectStartedAt.compareTo(fromDate) >= 0 &&
         projectStartedAt.compareTo(toDate) <= 0) {
@@ -131,14 +134,14 @@ class GanttChart extends StatelessWidget {
         return projectLength;
       else
         return viewRange - projectStartedAt.difference(fromDate).inDays;
-            //calculateNumberOfMonthsBetween(fromDate, projectStartedAt);
+      //calculateNumberOfMonthsBetween(fromDate, projectStartedAt);
     } else if (projectStartedAt.isBefore(fromDate) &&
         projectEndedAt.isBefore(fromDate)) {
       return 0;
     } else if (projectStartedAt.isBefore(fromDate) &&
         projectEndedAt.isBefore(toDate)) {
       return projectLength - projectStartedAt.difference(fromDate).inDays;
-          //calculateNumberOfMonthsBetween(projectStartedAt, fromDate);
+      //calculateNumberOfMonthsBetween(projectStartedAt, fromDate);
     } else if (projectStartedAt.isBefore(fromDate) &&
         projectEndedAt.isAfter(toDate)) {
       return viewRange;
@@ -168,7 +171,7 @@ class GanttChart extends StatelessWidget {
               bottom: i == data.length - 1 ? 4.0 : 2.0),
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
+            padding: const EdgeInsets.only(left: 6.0, right: 4.0),
             child: Text(
               data[i].name,
               maxLines: 1,
@@ -193,7 +196,7 @@ class GanttChart extends StatelessWidget {
     headerItems.add(Container(
       width: chartViewWidth / viewRangeToFitScreen,
       child: new Text(
-        'NAME',
+        'Etage',
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 10.0,
@@ -205,8 +208,11 @@ class GanttChart extends StatelessWidget {
       headerItems.add(Container(
         width: chartViewWidth / viewRangeToFitScreen,
         child: new Text(
-          tempDate.day
-              .toString(), // + '/' + tempDatem.month.toString() + '/' + tempDatey.year.toString(),
+          tempDate.day.toString() +
+              '/' +
+              tempDate.month.toString() +
+              '/' +
+              tempDate.year.toString(),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 10.0,
@@ -216,7 +222,6 @@ class GanttChart extends StatelessWidget {
       tempDate = tempDate.nextDay;
       // tempDatem = tempDate.nextMonth;
       // tempDatey = tempDate.nextYear;
-
     }
 
     return Container(
@@ -254,7 +259,10 @@ class GanttChart extends StatelessWidget {
     return Container(
       height: chartBars.length * 29.0 + 25.0 + 4.0,
       child: ListView(
-        physics: new ClampingScrollPhysics(),
+        shrinkWrap: true,
+        //physics: const NeverScrollableScrollPhysics(),
+        //new ClampingScrollPhysics(),
+
         scrollDirection: Axis.horizontal,
         children: <Widget>[
           Stack(fit: StackFit.loose, children: <Widget>[
@@ -264,6 +272,8 @@ class GanttChart extends StatelessWidget {
                 margin: EdgeInsets.only(top: 25.0),
                 child: Container(
                   child: Column(
+                    mainAxisSize: MainAxisSize
+                        .min, //***************************************
                     children: <Widget>[
                       Container(
                         child: Row(
@@ -279,7 +289,7 @@ class GanttChart extends StatelessWidget {
                                             ? 0
                                             : 0,
                                     child: new Text(
-                                      user.name,
+                                      user.name.toUpperCase(),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
@@ -303,6 +313,7 @@ class GanttChart extends StatelessWidget {
   }
 
   List<Widget> buildChartContent(double chartViewWidth) {
+    //************************** un seul bloc de user ou 01 avec ses charts
     List<Widget> chartContent = [];
 
     usersInChart.forEach((user) {
@@ -327,12 +338,19 @@ class GanttChart extends StatelessWidget {
     var screenOrientation = MediaQuery.of(context).orientation;
 
     screenOrientation == Orientation.landscape
-        ? viewRangeToFitScreen = 15
-        : viewRangeToFitScreen = 10;
+        ? viewRangeToFitScreen = 12
+        : viewRangeToFitScreen = 16;
 
     return Container(
       child: MediaQuery.removePadding(
-        child: ListView(children: buildChartContent(chartViewWidth)),
+        child: ListView(children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              children: buildChartContent(chartViewWidth),
+            ),
+          )
+        ]),
         removeTop: true,
         context: context,
       ),
@@ -341,53 +359,53 @@ class GanttChart extends StatelessWidget {
 }
 
 var users = [
-  User(id: 1, name: 'Ramzi'),
-  User(id: 2, name: 'Guedouar'),
-  User(id: 3, name: 'Danil'),
-  User(id: 4, name: 'Selyane'),
+  User(id: 1, name: '01'),
+  User(id: 2, name: '02'),
+  User(id: 3, name: '03'),
+  User(id: 4, name: '04'),
 ];
 
 var projects = [
   Project(
       id: 1,
       name: 'Basetax',
-      startTime: DateTime(2017, 3, 1),
-      endTime: DateTime(2017, 3, 2),
-      participants: [1]),
+      startTime: DateTime(2017, 1, 3),
+      endTime: DateTime(2017, 1, 5),
+      participants: [1, 2, 4, 3]),
   Project(
       id: 2,
       name: 'CENTTO',
-      startTime: DateTime(2018, 4, 1),
-      endTime: DateTime(2018, 6, 1),
-      participants: [2, 3]),
+      startTime: DateTime(2017, 1, 4),
+      endTime: DateTime(2017, 1, 8),
+      participants: [1, 4, 2, 3]),
   Project(
       id: 3,
       name: 'Uber',
-      startTime: DateTime(2017, 5, 1),
-      endTime: DateTime(2018, 9, 1),
+      startTime: DateTime(2017, 1, 14),
+      endTime: DateTime(2017, 1, 25),
       participants: [1, 2, 4]),
   Project(
       id: 4,
       name: 'Grab',
-      startTime: DateTime(2018, 6, 1),
-      endTime: DateTime(2018, 10, 1),
-      participants: [1, 4, 3]),
+      startTime: DateTime(2017, 1, 30),
+      endTime: DateTime(2017, 1, 3),
+      participants: [1, 2, 4, 3]),
   Project(
       id: 5,
       name: 'GO-JEK',
-      startTime: DateTime(2017, 3, 1),
-      endTime: DateTime(2018, 11, 1),
-      participants: [4, 2, 3]),
+      startTime: DateTime(2017, 1, 28),
+      endTime: DateTime(2017, 2, 2),
+      participants: [1, 4, 2, 3]),
   Project(
       id: 6,
       name: 'Lyft',
-      startTime: DateTime(2018, 4, 1),
-      endTime: DateTime(2018, 7, 1),
-      participants: [4, 2, 3]),
+      startTime: DateTime(2017, 2, 28),
+      endTime: DateTime(2017, 3, 3),
+      participants: [1, 4, 2, 3]),
   Project(
       id: 7,
       name: 'San Jose',
-      startTime: DateTime(2018, 5, 1),
-      endTime: DateTime(2018, 12, 1),
-      participants: [1, 2, 4]),
+      startTime: DateTime(2017, 2, 29),
+      endTime: DateTime(2017, 3, 2),
+      participants: [1, 2, 3, 4]),
 ];
