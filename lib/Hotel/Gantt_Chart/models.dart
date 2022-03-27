@@ -1,18 +1,25 @@
-class User {
+class Floor {
   int id;
-  String name;
+  String floor;
 
-  User({required this.id, required this.name});
+  Floor({required this.id, required this.floor});
 }
 
-class Project {
+class Room {
+  int id;
+  String room;
+
+  Room({required this.id, required this.room});
+}
+
+class UserBooker {
   int id;
   String name;
   DateTime startTime;
   DateTime endTime;
   List<int> participants;
 
-  Project(
+  UserBooker(
       {required this.id,
       required this.name,
       required this.startTime,

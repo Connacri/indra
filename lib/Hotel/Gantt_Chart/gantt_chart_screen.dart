@@ -27,8 +27,8 @@ class GranttChartScreenState extends State<GranttChartScreen>
   DateTime fromDate = DateTime(2017, 1, 1);
   DateTime toDate = DateTime(2023, 1, 1);
 
-  late List<User> usersInChart;
-  late List<Project> projectsInChart;
+  late List<Floor> usersInChart;
+  late List<UserBooker> projectsInChart;
 
   @override
   void initState() {
@@ -37,8 +37,8 @@ class GranttChartScreenState extends State<GranttChartScreen>
         duration: Duration(microseconds: 2000), vsync: this);
     animationController.forward();
 
-    projectsInChart = projects;
-    usersInChart = users;
+    projectsInChart = userbookers;
+    usersInChart = floors;
   }
 
   @override
@@ -50,7 +50,7 @@ class GranttChartScreenState extends State<GranttChartScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('GANTT CHART'),
+        title: Text('GANTT CHART Hotel'),
       ),
       body:
           // GestureDetector(
@@ -83,8 +83,8 @@ class GanttChart extends StatelessWidget {
   final AnimationController animationController;
   final DateTime fromDate;
   final DateTime toDate;
-  final List<Project> data;
-  final List<User> usersInChart;
+  final List<UserBooker> data;
+  final List<Floor> usersInChart;
 
   late int NombreJours;
   late int viewRange;
@@ -152,7 +152,7 @@ class GanttChart extends StatelessWidget {
   }
 
   List<Widget> buildChartBars(
-      List<Project> data, double chartViewWidth, Color color) {
+      List<UserBooker> data, double chartViewWidth, Color color) {
     List<Widget> chartBars = [];
 
     for (int i = 0; i < data.length; i++) {
@@ -255,7 +255,7 @@ class GanttChart extends StatelessWidget {
   }
 
   Widget buildChartForEachUser(
-      List<Project> userData, double chartViewWidth, User user) {
+      List<UserBooker> userData, double chartViewWidth, Floor user) {
     Color color = //Colors.teal;
         randomColorGenerator();
     var chartBars = buildChartBars(userData, chartViewWidth, color);
@@ -270,13 +270,12 @@ class GanttChart extends StatelessWidget {
         children: <Widget>[
           Stack(fit: StackFit.loose, children: <Widget>[
             buildGrid(chartViewWidth),
-            buildHeader(chartViewWidth, color),
+            //buildHeader(chartViewWidth, color),
             Container(
                 margin: EdgeInsets.only(top: 25.0),
                 child: Container(
                   child: Column(
-                    mainAxisSize: MainAxisSize
-                        .min, //***************************************
+                    mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Container(
                         child: Row(
@@ -292,7 +291,7 @@ class GanttChart extends StatelessWidget {
                                             ? 0
                                             : 0,
                                     child: new Text(
-                                      user.name.toUpperCase(),
+                                      user.floor.toUpperCase(),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
@@ -320,10 +319,10 @@ class GanttChart extends StatelessWidget {
     List<Widget> chartContent = [];
 
     usersInChart.forEach((user) {
-      List<Project> projectsOfUser = [];
+      List<UserBooker> projectsOfUser = [];
 
-      projectsOfUser = projects
-          .where((project) => project.participants.indexOf(user.id) != -1)
+      projectsOfUser = userbookers
+          .where((userBooker) => userBooker.participants.indexOf(user.id) != -1)
           .toList();
 
       if (projectsOfUser.length > 0) {
@@ -366,7 +365,12 @@ class GanttChart extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Column(
-              children: buildChartContent(chartViewWidth),
+              children: [
+                buildHeader(chartViewWidth, Colors.indigo),
+                Column(
+                  children: buildChartContent(chartViewWidth),
+                ),
+              ],
             ),
           ),
         ]),
@@ -377,54 +381,92 @@ class GanttChart extends StatelessWidget {
   }
 }
 
-var users = [
-  User(id: 1, name: '01'),
-  User(id: 2, name: '02'),
-  User(id: 3, name: '03'),
-  User(id: 4, name: '04'),
+var floors = [
+  Floor(id: 1, floor: '01'),
+  Floor(id: 2, floor: '02'),
+  Floor(id: 3, floor: '03'),
+  Floor(id: 4, floor: '04'),
+  Floor(id: 5, floor: '05'),
+  Floor(id: 6, floor: '06'),
+  Floor(id: 7, floor: '07'),
 ];
 
-var projects = [
-  Project(
+var rooms = [
+  Room(id: 1, room: '01'),
+  Room(id: 2, room: '02'),
+  Room(id: 3, room: '03'),
+  Room(id: 4, room: '04'),
+  Room(id: 5, room: '05'),
+  Room(id: 6, room: '06'),
+  Room(id: 7, room: '07'),
+  Room(id: 5, room: '08'),
+  Room(id: 6, room: '09'),
+  Room(id: 7, room: '10'),
+  Room(id: 5, room: '11'),
+  Room(id: 6, room: '12'),
+  Room(id: 7, room: '14'),
+];
+
+
+var userbookers = [
+  UserBooker(
       id: 1,
-      name: 'Basetax',
-      startTime: DateTime(2017, 1, 3),
+      name: 'Ramzi',
+      startTime: DateTime(2017, 1, 2),
       endTime: DateTime(2017, 1, 5),
-      participants: [1, 2, 4, 3]),
-  Project(
+      participants: [1, 2, 4, 3,7]),
+  UserBooker(
       id: 2,
-      name: 'CENTTO',
+      name: 'Danil',
       startTime: DateTime(2017, 1, 4),
       endTime: DateTime(2017, 1, 8),
       participants: [1, 4, 2, 3]),
-  Project(
+  UserBooker(
       id: 3,
-      name: 'Uber',
+      name: 'Selyane',
       startTime: DateTime(2017, 1, 14),
       endTime: DateTime(2017, 1, 25),
-      participants: [1, 2, 4, 3]),
-  Project(
+      participants: [1, 2, 7, 3]),
+  UserBooker(
       id: 4,
-      name: 'Grab',
+      name: 'Samir',
       startTime: DateTime(2017, 1, 30),
       endTime: DateTime(2017, 1, 3),
-      participants: [1, 2, 4, 3]),
-  Project(
+      participants: [1, 2, 5, 3]),
+  UserBooker(
       id: 5,
-      name: 'GO-JEK',
+      name: 'Poutin',
       startTime: DateTime(2017, 1, 28),
       endTime: DateTime(2017, 2, 2),
       participants: [1, 4, 2, 3]),
-  Project(
+  UserBooker(
       id: 6,
-      name: 'Lyft',
-      startTime: DateTime(2017, 2, 28),
-      endTime: DateTime(2017, 3, 3),
-      participants: [1, 4, 2, 3]),
-  Project(
+      name: 'KimJan',
+      startTime: DateTime(2017, 2, 26),
+      endTime: DateTime(2017, 3, 7),
+      participants: [1, 4, 2, 3,5,6,7]),
+  UserBooker(
       id: 7,
-      name: 'San Jose',
-      startTime: DateTime(2017, 2, 29),
-      endTime: DateTime(2017, 3, 2),
+      name: 'Bruclee',
+      startTime: DateTime(2017, 2, 31),
+      endTime: DateTime(2017, 3, 1),
       participants: [1, 2, 3, 4]),
+  UserBooker(
+      id: 7,
+      name: 'Cordoba',
+      startTime: DateTime(2017, 1, 29),
+      endTime: DateTime(2017, 2, 12),
+      participants: [1, 2, 3, 5]),
+  UserBooker(
+      id: 7,
+      name: 'Kalite',
+      startTime: DateTime(2017, 1, 01),
+      endTime: DateTime(2017, 1, 04),
+      participants: [1, 2, 3, 4,6]),
+  UserBooker(
+      id: 7,
+      name: 'Vinga',
+      startTime: DateTime(2017, 1, 27),
+      endTime: DateTime(2017, 3, 2),
+      participants: [1, 2, 3, 4,7]),
 ];
