@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 import 'dart:math';
 import 'models.dart';
 
@@ -117,6 +120,14 @@ class GanttChart extends StatelessWidget {
   //   return to.month - from.month + 12 * (to.year - from.year) + 1;
   // }
 
+  /*************************************************************************************************/
+  final itemKey = GlobalKey();
+  Future scrollToItem() async {
+    final context = itemKey.currentContext!;
+    await Scrollable.ensureVisible(context);
+  }
+  /*************************************************************************************************/
+
   int calculateDistanceToLeftBorder(DateTime projectStartedAt) {
     if (projectStartedAt.compareTo(fromDate) <= 0) {
       return 0;
@@ -189,6 +200,7 @@ class GanttChart extends StatelessWidget {
   }
 
   Widget buildHeader(double chartViewWidth, Color color) {
+
     List<Widget> headerItems = [];
 
     DateTime tempDate = fromDate;
@@ -198,38 +210,91 @@ class GanttChart extends StatelessWidget {
     headerItems.add(Container(
       width: chartViewWidth / viewRangeToFitScreen,
       child: new Text(
-        'Etage',
+        'Etage'.toUpperCase(),
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 10.0,
+          fontFamily: 'Oswald',
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+          fontSize: 16.0,
         ),
       ),
     ));
 
     for (int i = 0; i < viewRange; i++) {
-      headerItems.add(Container(
-        width: chartViewWidth / viewRangeToFitScreen,
-        child: new Text(
-          tempDate.day.toString() +
-              '/' +
-              tempDate.month.toString() +
-              '/' +
-              tempDate.year.toString(),
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 10.0,
+      Jiffy.locale('fr');
+      headerItems.add(Column(
+        children: [
+          Container(
+              child: Text(
+                Jiffy(tempDate).format("yyyy").toUpperCase(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Oswald',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 16.0,
+                ),
+              )),
+          Container(
+              child: Text(
+                Jiffy(tempDate).format("MMMM").toUpperCase(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Oswald',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 12.0,
+                ),
+              )),
+          Container(
+            width: chartViewWidth / viewRangeToFitScreen,
+            child: new Text(
+              tempDate.day.toString()
+              // +
+              // '/' +
+              // tempDate.month.toString() +
+              // '/' +
+              // tempDate.year.toString()
+              ,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
-        ),
+          Container(
+              child: Text(
+                Jiffy(tempDate).format("EEE").toUpperCase(),/********EEEE AFFICHE JOUR COMPLETE SAMEDI AU LIEU DE SAM.*/
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Oswald',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 10.0,
+                ),
+              )),
+
+        ],
       ));
       tempDate = tempDate.nextDay;
       // tempDatem = tempDate.nextMonth;
       // tempDatey = tempDate.nextYear;
+
     }
 
     return Container(
-      height: 25.0,
-      color: color.withAlpha(100),
-      child: Row(
+      color: Colors.blueAccent,
+      //padding: EdgeInsets.all(8),
+      height: 100, //25.0,
+      //color: color.withAlpha(100),
+
+      child: ListView( // au debut elle a été simple Row et je les changer on listview
+        physics: PageScrollPhysics(),
+        shrinkWrap : true,
+        scrollDirection : Axis.horizontal,
         children: headerItems,
       ),
     );
@@ -346,21 +411,26 @@ class GanttChart extends StatelessWidget {
     return Container(
       child: MediaQuery.removePadding(
         child: ListView(children: [
-          CalendarTimeline(
-            initialDate: fromDate,
-            firstDate: fromDate,
-            lastDate: toDate,
-            onDateSelected: (DateTime) {},
-            showYears: true,
-            leftMargin: 60,
-            monthColor: Colors.blueGrey,
-            dayColor: Colors.teal[200],
-            activeDayColor: Colors.white,
-            activeBackgroundDayColor: Colors.redAccent[100],
-            dotsColor: Color(0xFF333A47),
-            selectableDayPredicate: (date) => date.day != 23,
-            locale:
-                'en_ISO', //********************************************en_ISO
+          // CalendarTimeline(
+          //   initialDate: fromDate,
+          //   firstDate: fromDate,
+          //   lastDate: toDate,
+          //   onDateSelected: (DateTime) {},
+          //   showYears: true,
+          //   leftMargin: 60,
+          //   monthColor: Colors.blueGrey,
+          //   dayColor: Colors.teal[200],
+          //   activeDayColor: Colors.white,
+          //   activeBackgroundDayColor: Colors.redAccent[100],
+          //   dotsColor: Color(0xFF333A47),
+          //   selectableDayPredicate: (date) => date.day != 23,
+          //   locale:
+          //       'en_ISO', //********************************************en_ISO
+          // ),
+          SizedBox(height: 10.0,),
+          RaisedButton(
+            onPressed: () => null,
+            child: Text('Select date'),
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -391,22 +461,21 @@ var floors = [
   Floor(id: 7, floor: '07'),
 ];
 
-var rooms = [
-  Room(id: 1, room: '01'),
-  Room(id: 2, room: '02'),
-  Room(id: 3, room: '03'),
-  Room(id: 4, room: '04'),
-  Room(id: 5, room: '05'),
-  Room(id: 6, room: '06'),
-  Room(id: 7, room: '07'),
-  Room(id: 5, room: '08'),
-  Room(id: 6, room: '09'),
-  Room(id: 7, room: '10'),
-  Room(id: 5, room: '11'),
-  Room(id: 6, room: '12'),
-  Room(id: 7, room: '14'),
-];
-
+// var rooms = [
+//   Room(id: 1, room: '01'),
+//   Room(id: 2, room: '02'),
+//   Room(id: 3, room: '03'),
+//   Room(id: 4, room: '04'),
+//   Room(id: 5, room: '05'),
+//   Room(id: 6, room: '06'),
+//   Room(id: 7, room: '07'),
+//   Room(id: 5, room: '08'),
+//   Room(id: 6, room: '09'),
+//   Room(id: 7, room: '10'),
+//   Room(id: 5, room: '11'),
+//   Room(id: 6, room: '12'),
+//   Room(id: 7, room: '14'),
+// ];
 
 var userbookers = [
   UserBooker(
@@ -414,7 +483,7 @@ var userbookers = [
       name: 'Ramzi',
       startTime: DateTime(2017, 1, 2),
       endTime: DateTime(2017, 1, 5),
-      participants: [1, 2, 4, 3,7]),
+      participants: [1, 2, 4, 3, 7]),
   UserBooker(
       id: 2,
       name: 'Danil',
@@ -444,7 +513,7 @@ var userbookers = [
       name: 'KimJan',
       startTime: DateTime(2017, 2, 26),
       endTime: DateTime(2017, 3, 7),
-      participants: [1, 4, 2, 3,5,6,7]),
+      participants: [1, 4, 2, 3, 5, 6, 7]),
   UserBooker(
       id: 7,
       name: 'Bruclee',
@@ -462,11 +531,11 @@ var userbookers = [
       name: 'Kalite',
       startTime: DateTime(2017, 1, 01),
       endTime: DateTime(2017, 1, 04),
-      participants: [1, 2, 3, 4,6]),
+      participants: [1, 2, 3, 4, 6]),
   UserBooker(
       id: 7,
       name: 'Vinga',
       startTime: DateTime(2017, 1, 27),
       endTime: DateTime(2017, 3, 2),
-      participants: [1, 2, 3, 4,7]),
+      participants: [1, 2, 3, 4, 7]),
 ];

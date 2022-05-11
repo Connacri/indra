@@ -55,7 +55,9 @@ dependencies:
   syncfusion_flutter_calendar: ^19.4.55
   intl: ^0.17.0
   dart_date: ^1.1.1
-
+  jiffy: ^5.0.0
+  http: ^0.13.4
+  html: ^0.15.0
 
 dev_dependencies:
   flutter_test:

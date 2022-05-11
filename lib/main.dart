@@ -19,6 +19,7 @@ import 'package:indra/Hotel/test.dart';
 import 'package:indra/Hotel/test2.dart';
 import 'package:indra/Test/auth.dart';
 import 'package:indra/Test/firestoreScriptPagination.dart';
+import 'package:indra/Test/oudkniss.dart';
 import 'package:indra/Test/pagination_v2.dart';
 import 'package:indra/Test/testProfile.dart';
 import 'package:indra/add_dif/card_test.dart';
@@ -105,7 +106,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    gantt_chart(),
+    //gantt_chart(),
+    ouedkniss(),
     CardStateLess(), //**************************
     Pagination_Infinite_Scrolling(),
     conbb(), //**************************
