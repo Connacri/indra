@@ -23,24 +23,24 @@ class _ouedknissState extends State<ouedkniss> {
   }
 
   Future getWebsiteData() async {
-    final url = Uri.parse('https://www.amazon.com/s?k=gaming+keyboard');
+    final url = Uri.parse('https://www.echoroukonline.com/algeria');
     final response = await http.get(url);
     dom.Document html = dom.Document.html(response.body);
 
     final titles = html
-        .querySelectorAll('h2 > a > span')
+        .querySelectorAll('div> h3 > a > span')
         .map((element) => element.innerHtml.trim())
         .toList();
-
-    final urls = html
-        .querySelectorAll('h2 > a')
-        .map((e) => 'https://www.amazon.com/${e.attributes['href']}')
-        .toList();
-
-    final urlImages = html
-        .querySelectorAll('span > a > div > img')
-        .map((e) => e.attributes['src']!)
-        .toList();
+    //
+    // final urls = html
+    //     .querySelectorAll('div> h3 > a')
+    //     .map((e) => 'https://www.echoroukonline.com/${e.attributes['href']}')
+    //     .toList();
+    //
+    // final urlImages = html
+    //     .querySelectorAll('div> a > img')
+    //     .map((e) => e.attributes['src']!)
+    //     .toList();
 
     print('Count:${titles.length}');
 
@@ -48,9 +48,10 @@ class _ouedknissState extends State<ouedkniss> {
       articles = List.generate(
           titles.length,
           (index) => Article(
-              url: urls[index],
+              url: '',//urls[index],
               title: titles[index],
-              urlImage: urlImages[index]));
+              urlImage: '',//urlImages[index]
+          ));
     });
 
     for (final title in titles) {
